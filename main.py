@@ -1,3 +1,11 @@
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer, pipeline
+
+summarizer = pipeline(
+    "summarization",
+    model=AutoModelForSeq2SeqLM.from_pretrained("sshleifer/distilbart-cnn-12-6"),
+    tokenizer=AutoTokenizer.from_pretrained("sshleifer/distilbart-cnn-12-6")
+)
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 
@@ -19,7 +27,7 @@ async def demo_get():
 
 @app.post("/path")
 async def demo_post(inp: Msg):
-    return {"message": inp.msg.upper()}
+    return {"message": summarizer(inp.msg)}
 
 
 @app.get("/path/{path_id}")
