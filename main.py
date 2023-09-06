@@ -66,11 +66,6 @@ async def demo_post(inp: Msg):
     }
 
 
-@app.post("/dumbarry")
-async def demo_post(inp: Msg):
-    return {"bollocks": summarizer(inp.msg)[0]["summary_text"]}
-
-
 @app.get("/path/{path_id}")
 async def demo_get_path_id(path_id: int):
     return {"message": f"This is /path/{path_id} endpoint, use post request to retrieve result"}
