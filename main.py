@@ -29,7 +29,7 @@ def splitSentence(sentence):
 
 summarizer = pipeline("summarization", model="pszemraj/long-t5-tglobal-base-16384-book-summary")
 
-from fastapi import FastAPI, Response
+from fastapi import FastAPI
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -56,13 +56,10 @@ async def demo_post(inp: Msg):
     else:
         summary = summarizer(inp.original)
     results = rouge.compute(predictions=[inp.summary], references=[[summary[0]["summary_text"]]])
-    return Response(
-        content={
-            "summary": summary[0]["summary_text"],
-            "rouge": results['rougeL']
-        },
-        media_type="application/json"
-    )
+    return {
+        "summary": summary[0]["summary_text"],
+        "rouge": results['rougeL']
+    }
 
 
 @app.get("/path/{path_id}")
