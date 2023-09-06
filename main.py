@@ -29,7 +29,7 @@ def splitSentence(sentence):
 
 summarizer = pipeline("summarization", model="pszemraj/long-t5-tglobal-base-16384-book-summary")
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from pydantic import BaseModel
 
 app = FastAPI()
