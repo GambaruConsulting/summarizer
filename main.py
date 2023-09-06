@@ -27,11 +27,7 @@ def splitSentence(sentence):
         return [sentence]
 
 
-summarizer = pipeline(
-    "summarization",
-    model=AutoModelForSeq2SeqLM.from_pretrained("sshleifer/distilbart-cnn-12-6"),
-    tokenizer=AutoTokenizer.from_pretrained("sshleifer/distilbart-cnn-12-6")
-)
+summarizer = pipeline("summarization", model="pszemraj/long-t5-tglobal-base-16384-book-summary")
 
 from fastapi import FastAPI
 from pydantic import BaseModel
