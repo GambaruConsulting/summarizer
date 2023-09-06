@@ -39,7 +39,8 @@ from pydantic import BaseModel
 app = FastAPI()
 
 class Msg(BaseModel):
-    msg: str
+    summary: str
+    original: str
 
 
 @app.get("/")
@@ -54,11 +55,11 @@ async def demo_get():
 
 @app.post("/path")
 async def demo_post(inp: Msg):
-    if len(inp.msg) > 2048:
-        summary = summarizer(inp.msg[:2048])
+    if len(inp.original) > 2048:
+        summary = summarizer(inp.original[:2048])
     else:
-        summary = summarizer(inp.msg)
-    results = rouge.compute(predictions=[inp.msg], references=[[summary[0]["summary_text"]]])
+        summary = summarizer(inp.original)
+    results = rouge.compute(predictions=[inp.summary], references=[[summary[0]["summary_text"]]])
     return {
         "summary": summary[0]["summary_text"],
         "rouge": results['rougeL']
