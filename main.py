@@ -53,7 +53,10 @@ async def demo_get():
 
 @app.post("/path")
 async def demo_post(inp: Msg):
-    summary = summarizer(inp.msg[:2048])
+    if len(inp.msg) > 2048:
+        summary = summarizer(inp.msg[:2048])
+    else:
+        summary = summarizer(inp.msg)
     results = rouge.compute(predictions=[splitSentence(inp.msg)], references=[splitSentence(summary)])
     return {
         "summary": summary,
