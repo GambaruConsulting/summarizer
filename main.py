@@ -60,9 +60,14 @@ async def demo_post(inp: Msg):
         summary = summarizer(inp.msg)
     results = rouge.compute(predictions=[splitSentence(inp.msg)], references=[splitSentence(summary)])
     return {
-        "summary": summary,
+        "summary": summary[0]["summary_text"],
         "rouge": results['rougeL']
     }
+
+
+@app.post("/dumbarry")
+async def demo_post(inp: Msg):
+    return {"bollocks": summarizer(inp.msg)[0]["summary_text"]}
 
 
 @app.get("/path/{path_id}")
