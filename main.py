@@ -56,10 +56,13 @@ async def demo_post(inp: Msg):
     else:
         summary = summarizer(inp.original)
     results = rouge.compute(predictions=[inp.summary], references=[[summary[0]["summary_text"]]])
-    return {
-        "summary": summary[0]["summary_text"],
-        "rouge": results['rougeL']
-    }
+    return Response(
+        content={
+            "summary": summary[0]["summary_text"],
+            "rouge": results['rougeL']
+        },
+        media_type="application/json"
+    )
 
 
 @app.get("/path/{path_id}")
