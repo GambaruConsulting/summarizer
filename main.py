@@ -58,7 +58,7 @@ async def demo_post(inp: Msg):
         summary = summarizer(inp.msg[:2048])
     else:
         summary = summarizer(inp.msg)
-    results = rouge.compute(predictions=[splitSentence(inp.msg)], references=[splitSentence(summary[0]["summary_text"])])
+    results = rouge.compute(predictions=[inp.msg], references=[[summary[0]["summary_text"]]])
     return {
         "summary": summary[0]["summary_text"],
         "rouge": results['rougeL']
