@@ -4,7 +4,7 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "uvicorn main:app --host :: --port $PORT",
+    "startCommand": "uvicorn main:app --host :: --port 7519",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10
   }
